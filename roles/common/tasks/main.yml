@@ -2,5 +2,6 @@
 
 - name: Update all packages
   yum:
-    name: *
+    name: '*'
     state: latest
+    update_cache: yes
