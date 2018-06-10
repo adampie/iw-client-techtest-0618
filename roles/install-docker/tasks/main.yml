@@ -12,7 +12,6 @@
   yum:
     name: "{{item}}"
     state: latest
-    update_cache: yes
   with_items:
   - yum-utils
   - device-mapper-persistent-data
@@ -24,3 +23,8 @@
     name: docker
     enabled: yes
     state: started
+
+- name: Install docker-py
+  pip:
+    name: docker-py
+    state: latest
