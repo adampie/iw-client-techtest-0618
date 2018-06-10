@@ -5,3 +5,11 @@
     name: '*'
     state: latest
     update_cache: yes
+
+- name: Install extra packages
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+  - epel-release
+  - python-pip
