@@ -1,0 +1,26 @@
+---
+
+- name: Add docker-ce repository
+  copy:
+    src: docker-ce.repo
+    dest: /etc/yum.repos.d/docker-ce.repo
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Install required packages
+  yum:
+    name: "{{item}}"
+    state: latest
+    update_cache: yes
+  with_items:
+  - yum-utils
+  - device-mapper-persistent-data
+  - lvm2
+  - docker-ce
+
+- name: Enable on boot and start docker
+  systemd:
+    name: docker
+    enabled: yes
+    state: started
