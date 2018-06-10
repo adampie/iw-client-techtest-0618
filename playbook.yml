@@ -1,8 +1,9 @@
 ---
 
-- hosts: localhost
+- hosts: adam-techtest
   gather_facts: true
   become: true
   
   roles:
     - common
+    - install-docker
