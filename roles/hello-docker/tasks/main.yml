@@ -1,0 +1,30 @@
+---
+
+- name: Make temp directory
+  file:
+    path: /tmp/hello-world
+    state: directory
+    mode: 0755
+
+- name: Copy over files
+  copy:
+    src: "hello-world/{{ item }}"
+    dest: "/tmp/hello-world/{{ item }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+  - Dockerfile
+  - index.html
+
+- name: Build nginx image
+  docker_image:
+    path: /tmp/hello-world
+    name: hello-world
+
+- name: Deploy hello-world
+  docker_container:
+    name: hello-world
+    image: hello-world
+    state: started
+    published_ports: 80:80
